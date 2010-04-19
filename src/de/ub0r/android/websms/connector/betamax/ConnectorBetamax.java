@@ -170,9 +170,9 @@ public class ConnectorBetamax extends Connector {
 			String htmlText = Utils.stream2str(
 					response.getEntity().getContent()).trim();
 			String[] lines = htmlText.split("\n");
-			Log.d(TAG, "--HTTP RESPONSE--");
-			Log.d(TAG, htmlText);
-			Log.d(TAG, "--HTTP RESPONSE--");
+			// Log.d(TAG, "--HTTP RESPONSE--");
+			// Log.d(TAG, htmlText);
+			// Log.d(TAG, "--HTTP RESPONSE--");
 			htmlText = null;
 			if (checkOnly) {
 				for (String s : lines) {
