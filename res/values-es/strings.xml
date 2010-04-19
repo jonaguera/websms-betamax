@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--
+		Copyright (C) 2010 Felix Bechstein
+	-->
+	<!--
+		This file is part of WebSMS. This program is free software; you can
+		redistribute it and/or modify it under the terms of the GNU General
+		Public License as published by the Free Software Foundation; either
+		version 3 of the License, or (at your option) any later version.
+	-->
+	<!--
+		This program is distributed in the hope that it will be useful, but
+		WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+		General Public License for more details. You should have received a
+		copy of the GNU General Public License along with this program; If
+		not, see <http://www.gnu.org/licenses/>.
+	-->
+<resources>
+	<!-- Common strings. -->
+	<string name="info_text">Este es un conector para WebSMS.\nEl único modo de usarlo, es como parte de WebSMS.</string>
+	<string name="stat_notify_sms_pending">WebSMS: enviando</string>
+	<string name="stat_notify_sending">Enviando:</string>
+	<string name="stat_notify_IO">WebSMS: Connector IO</string>
+	<string name="error">ERROR</string>
+	<string name="error_http">FALLO: HTTP</string>
+	<string name="error_mail">Dirección de email o contraseña incorrecta</string>
+	<string name="error_pw">Usuario o contraseña incorrecta</string>
+	<string name="error_sender">Remitente incorrecto! Configuralo en notación internacional, como +4917012345678.</string>
+	<string name="error_sender_unregistered">El remitente debe ser configurado y autorizado desde tu plataforma.</string>
+	<string name="error_server">FALLO: Respuesta del servidor:</string>
+	<string name="error_service">Servicio caído, prueba de nuevo más adelante.</string>
+	<string name="error_wrongcaptcha">Captcha incorrecto. Por favor, intentelo de nuevo.</string>
+	<string name="error_input">Error en entrada de usuario!</string>
+	<string name="error_http_header_missing">Header: Content-Length falta!</string>
+	<string name="error_sendlater_quater">Only full 15minutes are supported by your connector!</string>
+
+	<string name="username_">Usuario</string>
+	<string name="password_">Contraseña</string>
+	<string name="domain_">Dominio</string>
+	<string name="domain_hint">p.ej.: www.rynga.com</string>
+	<string name="create_account_">Crear cuenta</string>
+	<string name="use_derfault_sender_">Usar remitente por defecto</string>
+	<string name="use_derfault_sender_hint">Usar remitente por defecto definido por WebSMS.</string>
+	<string name="custom_sender_">Remitente personalizado</string>
+	<string name="sender_hint">Número internacional, p.ej. +3461791234524</string>
+</resources>

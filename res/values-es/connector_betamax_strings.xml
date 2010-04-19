@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--
+		Copyright (C) 2010 Felix Bechstein
+	-->
+	<!--
+		This file is part of WebSMS. This program is free software; you can
+		redistribute it and/or modify it under the terms of the GNU General
+		Public License as published by the Free Software Foundation; either
+		version 3 of the License, or (at your option) any later version.
+	-->
+	<!--
+		This program is distributed in the hope that it will be useful, but
+		WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+		General Public License for more details. You should have received a
+		copy of the GNU General Public License along with this program; If
+		not, see <http://www.gnu.org/licenses/>.
+	-->
+<resources>
+	<string name="app_name">WebSMS Connector: Betamax</string>
+	<string name="app_version">1.0</string>
+	<string name="connector_betamax_author">Jon Aguera </string>
+	<string name="connector_betamax_name">Betamax</string>
+	<string name="enable_betamax">Habilitar Betamax</string>
+	<string name="settings_betamax">Preferencias - Betamax</string>
+	<string name="partner_betamax_hint">Crear una nueva cuenta Betamax</string>
+	<string name="partner_betamax_url">http://www.rynga.com/</string>
+	<string name="basic">Basic</string>
+	<string name="discount">Discount</string>
+	<string name="pro">Pro</string>
+</resources>
