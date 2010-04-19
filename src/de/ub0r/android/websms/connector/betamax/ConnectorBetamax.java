@@ -43,13 +43,11 @@ import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
  */
 public class ConnectorBetamax extends Connector {
 	/** Tag for debug output. */
-	private static final String TAG = "WebSMS.example";
+	private static final String TAG = "WebSMS.betamax";
 	/** SmsBug Gateway URL. */
-	private static final String URL_SEND = // .
-	"/myaccount/sendsms.php";
+	private static final String URL_SEND = "/myaccount/sendsms.php";
 	/** SmsBug Gateway URL. */
-	private static final String URL_BALANCE = // .
-	"/myaccount/getbalance.php";
+	private static final String URL_BALANCE = "/myaccount/getbalance.php";
 
 	/**
 	 * {@inheritDoc}
@@ -59,8 +57,7 @@ public class ConnectorBetamax extends Connector {
 	public final ConnectorSpec initSpec(final Context context) {
 		final String name = context.getString(R.string.connector_betamax_name);
 		ConnectorSpec c = new ConnectorSpec(TAG, name);
-		c.setAuthor(// .
-				context.getString(R.string.connector_betamax_author));
+		c.setAuthor(context.getString(R.string.connector_betamax_author));
 		c.setBalance(null);
 		c.setPrefsTitle(context.getString(R.string.settings_betamax));
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_UPDATE
@@ -180,7 +177,7 @@ public class ConnectorBetamax extends Connector {
 			htmlText = null;
 			if (checkOnly) {
 				for (String s : lines) {
-					cs.setBalance(s.replace("| &#8364;", "€"));
+					cs.setBalance(s.replace("| &#8364;", "\u20AC"));
 				}
 			}
 		} catch (IOException e) {
@@ -206,5 +203,4 @@ public class ConnectorBetamax extends Connector {
 			throws WebSMSException {
 		this.sendData(context, new ConnectorCommand(intent));
 	}
-
 }
