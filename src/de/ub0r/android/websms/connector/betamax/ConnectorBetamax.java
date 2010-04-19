@@ -43,13 +43,11 @@ import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
  */
 public class ConnectorBetamax extends Connector {
 	/** Tag for debug output. */
-	private static final String TAG = "WebSMS.example";
+	private static final String TAG = "WebSMS.betamax";
 	/** SmsBug Gateway URL. */
-	private static final String URL_SEND = // .
-	"/myaccount/sendsms.php";
+	private static final String URL_SEND = "/myaccount/sendsms.php";
 	/** SmsBug Gateway URL. */
-	private static final String URL_BALANCE = // .
-	"/myaccount/getbalance.php";
+	private static final String URL_BALANCE = "/myaccount/getbalance.php";
 
 	/**
 	 * {@inheritDoc}
@@ -159,10 +157,18 @@ public class ConnectorBetamax extends Connector {
 				url.append("&text=");
 				url.append(URLEncoder.encode(text));
 				url.append("&to=");
-				url.append(Utils.joinRecipientsNumbers(command.getRecipients(),
-						",", true));
+				url.append(cnational2international(command.getDefPrefix(),
+						Utils.getRecipientsNumber(command.getRecipients()[0]))
+						.substring(1));
+
+				/*
+				 * Log.d(TAG, "--HTTP RESPONSE---------------------");
+				 * Log.d(TAG, url.toString()); Log.d(TAG, prefix); Log.d(TAG,
+				 * "--HTTP RESPONSE---------------------");
+				 */
 			}
 			// send data
+
 			HttpResponse response = Utils.getHttpClient(url.toString(), null,
 					null, null, null);
 			int resp = response.getStatusLine().getStatusCode();
@@ -174,19 +180,18 @@ public class ConnectorBetamax extends Connector {
 			String htmlText = Utils.stream2str(
 					response.getEntity().getContent()).trim();
 			String[] lines = htmlText.split("\n");
-			Log.d(TAG, "--HTTP RESPONSE--");
-			Log.d(TAG, htmlText);
-			Log.d(TAG, "--HTTP RESPONSE--");
+
 			htmlText = null;
 			if (checkOnly) {
 				for (String s : lines) {
-					cs.setBalance(s.replace("| &#8364;", "€"));
+					cs.setBalance(s.replace("| &#8364;", "\u20AC"));
 				}
 			}
 		} catch (IOException e) {
 			Log.e(TAG, null, e);
 			throw new WebSMSException(e.getMessage());
 		}
+
 	}
 
 	/**
@@ -205,6 +210,22 @@ public class ConnectorBetamax extends Connector {
 	protected final void doSend(final Context context, final Intent intent)
 			throws WebSMSException {
 		this.sendData(context, new ConnectorCommand(intent));
+	}
+
+	/*
+	 * Funcion presonalizada cnational2international que actua tambien cuando el
+	 * número comienza por 6, añadiendole el prefijo internacional por defecto
+	 */
+	public static String cnational2international(final String defPrefix,
+			final String number) {
+		if (number.startsWith("00")) {
+			return "+" + number.substring(2);
+		} else if (number.startsWith("0")) {
+			return defPrefix + number.substring(1);
+		} else if (number.startsWith("6")) {
+			return defPrefix + number;
+		}
+		return number;
 	}
 
 }
