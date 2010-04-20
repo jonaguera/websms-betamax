@@ -161,11 +161,6 @@ public class ConnectorBetamax extends Connector {
 						Utils.getRecipientsNumber(command.getRecipients()[0]))
 						.substring(1));
 
-				/*
-				 * Log.d(TAG, "--HTTP RESPONSE---------------------");
-				 * Log.d(TAG, url.toString()); Log.d(TAG, prefix); Log.d(TAG,
-				 * "--HTTP RESPONSE---------------------");
-				 */
 			}
 			// send data
 
