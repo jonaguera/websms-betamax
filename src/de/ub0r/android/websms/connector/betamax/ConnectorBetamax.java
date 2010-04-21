@@ -56,11 +56,9 @@ public class ConnectorBetamax extends Connector {
 	@Override
 	public final ConnectorSpec initSpec(final Context context) {
 		final String name = context.getString(R.string.connector_betamax_name);
-		ConnectorSpec c = new ConnectorSpec(TAG, name);
-		c.setAuthor(// .
-				context.getString(R.string.connector_betamax_author));
+		ConnectorSpec c = new ConnectorSpec(name);
+		c.setAuthor(context.getString(R.string.connector_betamax_author));
 		c.setBalance(null);
-		c.setPrefsTitle(context.getString(R.string.settings_betamax));
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
 				| ConnectorSpec.CAPABILITIES_PREFS);
@@ -175,7 +173,6 @@ public class ConnectorBetamax extends Connector {
 			String htmlText = Utils.stream2str(
 					response.getEntity().getContent()).trim();
 			String[] lines = htmlText.split("\n");
-
 			htmlText = null;
 			if (checkOnly) {
 				for (String s : lines) {
@@ -206,7 +203,6 @@ public class ConnectorBetamax extends Connector {
 			throws WebSMSException {
 		this.sendData(context, new ConnectorCommand(intent));
 	}
-
 	/*
 	 * Funcion presonalizada cnational2international que actua tambien cuando el
 	 * número comienza por 6, añadiendole el prefijo internacional por defecto

@@ -17,15 +17,6 @@
 		not, see <http://www.gnu.org/licenses/>.
 	-->
 <resources>
-	<string name="app_name">WebSMS Connector: Betamax</string>
-	<string name="app_version">1.0</string>
-	<string name="connector_betamax_author">Jon Aguera </string>
-	<string name="connector_betamax_name">Betamax</string>
 	<string name="enable_betamax">Habilitar Betamax</string>
-	<string name="settings_betamax">Preferencias - Betamax</string>
 	<string name="partner_betamax_hint">Crear una nueva cuenta Betamax</string>
-	<string name="partner_betamax_url">http://www.rynga.com/</string>
-	<string name="basic">Basic</string>
-	<string name="discount">Discount</string>
-	<string name="pro">Pro</string>
 </resources>
