@@ -1,3 +1,5 @@
 gen
 bin
 local.properties
+.project
+.classpath
