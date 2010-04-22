@@ -206,6 +206,10 @@ public class ConnectorBetamax extends Connector {
 	/*
 	 * Funcion presonalizada cnational2international que actua tambien cuando el
 	 * número comienza por 6, añadiendole el prefijo internacional por defecto
+	 * 
+	 * Otra logica más fiable puede ser comprobar si el número que nos llega comienza
+	 * por "00" o por "+" y en caso de no ser así, añadirle el prefijo por defecto
+	 * 
 	 */
 	public static String cnational2international(final String defPrefix,
 			final String number) {
