@@ -18,5 +18,6 @@
 	-->
 <resources>
 	<string name="enable_betamax">Habilitar Betamax</string>
+	<string name="settings_betamax">Preferencias - Betamax</string>
 	<string name="partner_betamax_hint">Crear una nueva cuenta Betamax</string>
 </resources>
