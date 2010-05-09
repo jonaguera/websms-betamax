@@ -20,4 +20,6 @@
 	<string name="enable_betamax">Aktiviere betamax</string>
 	<string name="settings_betamax">Einstellungen - betamax</string>
 	<string name="partner_betamax_hint">Neuen betamax Account anlegen</string>
+	<string name="domain_">Domain</string>
+	<string name="domain_hint">zB: www.rynga.com</string>
 </resources>
