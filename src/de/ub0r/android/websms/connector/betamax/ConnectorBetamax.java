@@ -147,9 +147,9 @@ public class ConnectorBetamax extends Connector {
 			url.append(Utils.getSender(context, command.getDefSender())
 					.replace("+", ""));
 			url.append("&username=");
-			url.append(p.getString(Preferences.PREFS_USER, ""));
+			url.append(URLEncoder.encode(p.getString(Preferences.PREFS_USER, "")));
 			url.append("&password=");
-			url.append(p.getString(Preferences.PREFS_PASSWORD, ""));
+			url.append(URLEncoder.encode(p.getString(Preferences.PREFS_PASSWORD, "")));
 
 			if (!checkOnly) {
 				url.append("&text=");
@@ -160,8 +160,8 @@ public class ConnectorBetamax extends Connector {
 						.substring(1));
 
 			}
+			
 			// send data
-
 			HttpResponse response = Utils.getHttpClient(url.toString(), null,
 					null, null, null);
 			int resp = response.getStatusLine().getStatusCode();
