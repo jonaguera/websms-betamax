@@ -25,4 +25,6 @@
 	<string name="enable_betamax">Enable betamax</string>
 	<string name="partner_betamax_hint">Create new betamax account</string>
 	<string name="partner_betamax_url">http://www.rynga.com/</string>
+	<string name="domain_">Domain</string>
+	<string name="domain_hint">eg: www.rynga.com</string>
 </resources>

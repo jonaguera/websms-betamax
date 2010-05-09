@@ -211,6 +211,8 @@ public class ConnectorBetamax extends Connector {
 	 * por "00" o por "+" y en caso de no ser así, añadirle el prefijo por defecto
 	 * 
 	 */
+	// TODO: use new API call which should handle that.
+	@Deprecated
 	public static String cnational2international(final String defPrefix,
 			final String number) {
 		if (number.startsWith("00")) {
