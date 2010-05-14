@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import de.ub0r.android.websms.connector.common.Connector;
 import de.ub0r.android.websms.connector.common.ConnectorCommand;
 import de.ub0r.android.websms.connector.common.ConnectorSpec;
@@ -43,9 +44,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 
@@ -194,25 +192,22 @@ public class ConnectorBetamax extends Connector {
 				for (String s : lines) {
 					cs.setBalance(s.replace("| &#8364;", "\u20AC"));
 				}
+		    
 			} else {
-				/* Parse XML response looking for resultstring value
-				 * Response sample
-				 
-					<SmsResponse>
-						<version>1</version>
-						<result>0</result> 
-						<resultstring>failure</resultstring>
-						<description>error</description>
-						<endcause></endcause>
-					</SmsResponse>
-					
-				 */
+				// Parse XML response looking for resultstring value
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			    Document doc = dBuilder.parse(response.getEntity().getContent());
 			    doc.getDocumentElement().normalize();
-			    String nValue = doc.getElementsByTagName("resultstring").item(0).getChildNodes().item(0).getNodeValue();
-			    
+			    Integer nValue = Integer.parseInt(doc.getElementsByTagName("result").item(0).getChildNodes().item(0).getNodeValue());
+			    String nValueString = doc.getElementsByTagName("resultstring").item(0).getChildNodes().item(0).getNodeValue();
+
+				// Use WebSMSException for failure messages
+				if (nValue < 1) {
+					Log.d(TAG, "failed to send message via Betamax vendor, response following:");
+					Log.d(TAG, nValueString);
+					throw new WebSMSException(context, R.string.error_sending);
+				}
 			}
 		} catch (IOException e) {
 			Log.e(TAG, null, e);

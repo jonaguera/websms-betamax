@@ -30,6 +30,7 @@
 	<string name="error_sender_unregistered">Sender must be registered and confirmed your provider.</string>
 	<string name="error_server">FAILURE: Serverresponse:</string>
 	<string name="error_service">Service is down! Please try again later.</string>
+	<string name="error_sending">Unable to send message. Check connector parameters.</string>
 	<string name="error_wrongcaptcha">Captcha was wrong. Please try again.</string>
 	<string name="error_input">Error in user input!</string>
 	<string name="error_http_header_missing">Header: Content-Length is missing!</string>

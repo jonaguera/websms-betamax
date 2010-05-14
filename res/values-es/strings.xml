@@ -30,6 +30,7 @@
 	<string name="error_sender_unregistered">El remitente debe ser configurado y autorizado desde tu plataforma.</string>
 	<string name="error_server">FALLO: Respuesta del servidor:</string>
 	<string name="error_service">Servicio caído, prueba de nuevo más adelante.</string>
+	<string name="error_sending">No se ha podido enviar el mensaje. Revise los parámetros de conexión</string>
 	<string name="error_wrongcaptcha">Captcha incorrecto. Por favor, intentelo de nuevo.</string>
 	<string name="error_input">Error en entrada de usuario!</string>
 	<string name="error_http_header_missing">Header: Content-Length falta!</string>
