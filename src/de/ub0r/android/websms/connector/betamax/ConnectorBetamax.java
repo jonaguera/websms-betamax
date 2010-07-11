@@ -74,6 +74,7 @@ public class ConnectorBetamax extends Connector {
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
 				| ConnectorSpec.CAPABILITIES_PREFS);
+		//c.setValidCharacters(CharacterTable.getValidCharacters());
 		c.addSubConnector(TAG, name, SubConnectorSpec.FEATURE_MULTIRECIPIENTS);
 		return c;
 	}
@@ -206,6 +207,9 @@ public class ConnectorBetamax extends Connector {
 				if (nValue < 1) {
 					Log.d(TAG, "failed to send message via Betamax vendor, response following:");
 					Log.d(TAG, nValueString);
+					//Log.d(TAG, "Request following:");
+					//Log.d(TAG, url.toString());
+					
 					throw new WebSMSException(context, R.string.error_sending);
 				}
 			}
