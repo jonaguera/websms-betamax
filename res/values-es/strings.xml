@@ -17,14 +17,8 @@
 		not, see <http://www.gnu.org/licenses/>.
 	-->
 <resources>
-	<string name="app_name">WebSMS Connector: betamax</string>
-	<string name="app_version">1.1</string>
-	<string name="connector_betamax_author">Jon Aguera </string>
-	<string name="connector_betamax_name">betamax</string>
-	<string name="settings_betamax">Preferences - betamax</string>
-	<string name="enable_betamax">Enable betamax</string>
-	<string name="partner_betamax_hint">Create new betamax account</string>
-	<string name="partner_betamax_url">http://www.rynga.com/</string>
-	<string name="domain_">Domain</string>
-	<string name="domain_hint">eg: www.rynga.com</string>
+	<string name="enable_betamax">Habilitar Betamax</string>
+	<string name="settings_betamax">Preferencias - Betamax</string>
+	<string name="partner_betamax_hint">Crear una nueva cuenta Betamax</string>
+	<string name="error_sending">No se ha podido enviar el mensaje. Revise los parámetros de conexión</string>
 </resources>
