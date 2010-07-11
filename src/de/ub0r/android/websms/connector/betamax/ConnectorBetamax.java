@@ -19,6 +19,7 @@
 package de.ub0r.android.websms.connector.betamax;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
@@ -29,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import de.ub0r.android.websms.connector.common.Connector;
 import de.ub0r.android.websms.connector.common.ConnectorCommand;
 import de.ub0r.android.websms.connector.common.ConnectorSpec;
@@ -36,12 +38,22 @@ import de.ub0r.android.websms.connector.common.Utils;
 import de.ub0r.android.websms.connector.common.WebSMSException;
 import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
 
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+
 /**
  * AsyncTask to manage IO to betamax API.
  * 
  * @author flx
  */
 public class ConnectorBetamax extends Connector {
+	
 	/** Tag for debug output. */
 	private static final String TAG = "WebSMS.betamax";
 	/** SmsBug Gateway URL. */
@@ -62,6 +74,7 @@ public class ConnectorBetamax extends Connector {
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
 				| ConnectorSpec.CAPABILITIES_PREFS);
+		//c.setValidCharacters(CharacterTable.getValidCharacters());
 		c.addSubConnector(TAG, name, SubConnectorSpec.FEATURE_MULTIRECIPIENTS);
 		return c;
 	}
@@ -144,7 +157,7 @@ public class ConnectorBetamax extends Connector {
 			}
 			url.append("?from=");
 
-			url.append(Utils.getSender(context, command.getDefSender())
+			url.append(URLEncoder.encode(Utils.getSender(context, command.getDefSender()))
 					.replace("+", ""));
 			url.append("&username=");
 			url.append(URLEncoder.encode(p.getString(Preferences.PREFS_USER, "")));
@@ -155,9 +168,9 @@ public class ConnectorBetamax extends Connector {
 				url.append("&text=");
 				url.append(URLEncoder.encode(text));
 				url.append("&to=");
-				url.append(cnational2international(command.getDefPrefix(),
+				url.append(URLEncoder.encode(Utils.national2international(command.getDefPrefix(),
 						Utils.getRecipientsNumber(command.getRecipients()[0]))
-						.substring(1));
+						.substring(1)));
 
 			}
 			
@@ -170,18 +183,43 @@ public class ConnectorBetamax extends Connector {
 				throw new WebSMSException(context, R.string.error_http, " "
 						+ resp);
 			}
-			String htmlText = Utils.stream2str(
-					response.getEntity().getContent()).trim();
-			String[] lines = htmlText.split("\n");
-			htmlText = null;
+			
+			
 			if (checkOnly) {
+				InputStream htmlStream = response.getEntity().getContent();
+				String htmlText = Utils.stream2str(htmlStream).trim();
+				String[] lines = htmlText.split("\n");
+				htmlText = null;
 				for (String s : lines) {
 					cs.setBalance(s.replace("| &#8364;", "\u20AC"));
+				}
+		    
+			} else {
+				// Parse XML response looking for resultstring value
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			    Document doc = dBuilder.parse(response.getEntity().getContent());
+			    doc.getDocumentElement().normalize();
+			    Integer nValue = Integer.parseInt(doc.getElementsByTagName("result").item(0).getChildNodes().item(0).getNodeValue());
+			    String nValueString = doc.getElementsByTagName("resultstring").item(0).getChildNodes().item(0).getNodeValue();
+
+				// Use WebSMSException for failure messages
+				if (nValue < 1) {
+					Log.d(TAG, "failed to send message via Betamax vendor, response following:");
+					Log.d(TAG, nValueString);
+					//Log.d(TAG, "Request following:");
+					//Log.d(TAG, url.toString());
+					
+					throw new WebSMSException(context, R.string.error_sending);
 				}
 			}
 		} catch (IOException e) {
 			Log.e(TAG, null, e);
 			throw new WebSMSException(e.getMessage());
+		} catch (ParserConfigurationException e) {
+			Log.e(TAG, null, e);
+		} catch (SAXException e) {
+			Log.e(TAG, null, e);
 		}
 
 	}
@@ -202,27 +240,5 @@ public class ConnectorBetamax extends Connector {
 	protected final void doSend(final Context context, final Intent intent)
 			throws WebSMSException {
 		this.sendData(context, new ConnectorCommand(intent));
-	}
-	/*
-	 * Funcion presonalizada cnational2international que actua tambien cuando el
-	 * número comienza por 6, añadiendole el prefijo internacional por defecto
-	 * 
-	 * Otra logica más fiable puede ser comprobar si el número que nos llega comienza
-	 * por "00" o por "+" y en caso de no ser así, añadirle el prefijo por defecto
-	 * 
-	 */
-	// TODO: use new API call which should handle that.
-	@Deprecated
-	public static String cnational2international(final String defPrefix,
-			final String number) {
-		if (number.startsWith("00")) {
-			return "+" + number.substring(2);
-		} else if (number.startsWith("0")) {
-			return defPrefix + number.substring(1);
-		} else if (number.startsWith("6")) {
-			return defPrefix + number;
-		}
-		return number;
-	}
-
+	}		 
 }
